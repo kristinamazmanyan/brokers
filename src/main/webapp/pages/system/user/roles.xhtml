@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  
+				template="/pages/templates/system-template.xhtml" 
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:dbt="http://www.exam.com/jsf/facelets">
+
+<ui:define name="subtab-index">1</ui:define>
+
+	<ui:define name="content">
+		<dbt:authCheck checkPermission="users.view_users"/>
+		
+		<p:panel id="parentPanel" header="#{i18n['user.roles']}">
+			<h:form id="rolesForm">
+				<p:growl id="growl" sticky="false" showSummary="true" showDetail="false" life="3000" />
+				<p:panel id="listPanel" style="margin-top:30px">
+				
+					<p:dataTable id="rolesTable" var="role" widgetVar="rolesTableVar"
+							value="#{roleListController.roles}" selectionMode="single" rowKey="#{role.id}">
+						   						   
+						   <p:column headerText="#{i18n['common.name']}">
+								<span title="#{role.name}">#{role.name}</span>
+						   </p:column>
+						   
+						    <p:column headerText="#{i18n['common.description']}">
+								<span title="#{role.description}">#{role.description}</span>
+						   </p:column>						   
+						   
+						   <p:column rendered="#{userDetails.manageUser}" style="width:25px;">
+						   		<p:link styleClass="ui-icon ui-icon-pencil" title="#{i18n['common.edit']}"
+					   					href="/pages/system/user/edit-role.jsf?id=#{role.id}"/>
+						   </p:column>
+						   <p:column rendered="#{userDetails.manageUser}" style="width:25px;">
+						   		<p:commandLink id="deleteButton" update=":rolesForm" actionListener="#{roleListController.deleteRole}"
+											   styleClass="ui-icon ui-icon-circle-minus"												   	
+											   onclick="if (!confirm('#{i18n['user.role_delete_confirm']}')) return false;"
+											   title="#{i18n['common.delete']}">
+									<f:param name="roleId" value="#{role.id}" />		   
+							    </p:commandLink>
+						   </p:column>						  
+					</p:dataTable>
+					<br/>
+					<table>
+						<tr>
+							<td>
+								<p:button rendered="#{userDetails.manageUser}" 
+										  href="/pages/system/user/add-role.jsf" 
+										  value="#{i18n['user.add_role']}"/>								
+							</td>
+							<td>
+								<p:button href="/pages/system/user/users.jsf" value="#{i18n['common.back']}" />							
+							</td>
+						</tr>
+					</table>	    
+				</p:panel>											
+			</h:form>		
+		</p:panel>		
+	</ui:define>
+</ui:composition>

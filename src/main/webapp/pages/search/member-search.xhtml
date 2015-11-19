@@ -1,0 +1,146 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:dbt="http://www.exam.com/jsf/facelets"
+                template="/pages/templates/default.xhtml">
+
+    <ui:define name="title">#{i18n['exam.member_search']}</ui:define>
+    <ui:define name="content">
+        <dbt:authCheck checkPermission="exam.view_search"/>
+        <h:form id="searchForm" >
+            <p:messages id="messages" showDetail="true" autoUpdate="true"
+                        closable="true" />
+
+            <p:panelGrid style="width:1024px">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="6">
+                            #{i18n['exam.search']}
+                        </p:column>
+                    </p:row>
+                </f:facet>
+
+                <p:row>
+
+                    <p:column>
+                        <h:outputLabel for="firstName" value="#{i18n['exam.first_name']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="firstName"
+                                     value="#{memberSearchController.searchBean.firstName}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputLabel for="lastName" value="#{i18n['exam.last_name']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="lastName"
+                                     value="#{memberSearchController.searchBean.lastName}" />
+                    </p:column>
+
+                </p:row>
+                <p:row>
+
+                    <p:column>
+                        <h:outputLabel for="passport" value="#{i18n['common.passport_number']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="passport"
+                                     value="#{memberSearchController.searchBean.passport}" />
+                    </p:column>
+
+
+
+                </p:row>
+
+
+            </p:panelGrid>
+            <br />
+            <p:commandButton id="searchButton" value="#{i18n['exam.search']}"
+                             icon="ui-icon-search"
+                             actionListener="#{memberSearchController.search}" update="dataTable"
+                             onstart="this.disabled=true" oncomplete="this.disabled=false"
+                             onclick="resetDataTable()" />
+            <p:spacer width="20" />
+            <p:commandButton value="#{i18n['exam.reset']}" icon="ui-icon-cancel"
+                             onclick="resetDataTable()"
+                             actionListener="#{memberSearchController.reset}"
+                             update=":searchForm" />
+            <br />
+            <br />
+            <br />
+            <p:dataTable id="dataTable" var="member"
+                         value="#{memberSearchController.lazyMemberSearchDataModel}"
+                         widgetVar="datatableVar" rowIndexVar="rowIndex"
+                         selectionMode="single" paginator="true" lazy="true" dynamic="true"
+                         cache="false" paginatorPosition="bottom"
+                         paginatorAlwaysVisible="false"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rows="#{memberSearchController.pageSize}"
+                         rowsPerPageTemplate="10,20,40,100">
+
+                <p:column headerText=" #{i18n['exam.number']}"
+                          sortBy="#{member.rownum}">
+                    #{rowIndex+1}
+                </p:column>
+
+                <p:column headerText=" #{i18n['exam.first_name']}"
+                          sortBy="#{member.firstName}">
+                    #{member.firstName}
+                </p:column>
+
+                <p:column headerText=" #{i18n['exam.last_name']}"
+                          sortBy="#{member.lastName}">
+                    #{member.lastName}
+                </p:column>
+
+                <p:column headerText=" #{i18n['exam.surename']}"
+                          sortBy="#{member.surname}">
+                    #{member.surname}
+                </p:column>
+
+                <p:column headerText=" #{i18n['common.passport_number']}" sortBy="#{member.passport}">
+                    #{member.passport}
+                </p:column>
+
+                <p:column headerText=" #{i18n['exam.exam_name']}" sortBy="#{member.testName}">
+                    #{member.testName}
+                </p:column>
+
+                <p:column headerText=" #{i18n['exam.exam_start_date']}"
+                          sortBy="#{member.startDate}">
+                    #{member.startDate}
+                </p:column>
+                <p:column headerText=" #{i18n['exam.appl_result']}"
+                          sortBy="#{member.percentStr}">
+                    #{member.percentStr}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.appl_result']}" />
+                    </f:facet>
+
+                     <h:commandLink styleClass="noblock submit" id="pdfres1"
+                                   action="#{memberSearchController.downloadResultExam}"
+                                   value="#{i18n['exam.appl_result']}" rendered="#{member.status >3 }">
+                        <f:param name="isForPdf" value="yes" />
+                        <f:param name="examMemberId" value="#{member.id}" />
+                        <f:param name="examId" value="#{member.testId}" />
+                    </h:commandLink>
+
+                </p:column>
+            </p:dataTable>
+
+
+
+        </h:form>
+        <script type="text/javascript">
+            function resetDataTable() {
+                datatableVar.getPaginator().setPage(0);
+            }
+        </script>
+
+    </ui:define>
+</ui:composition>

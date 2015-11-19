@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  
+				template="/pages/templates/system-template.xhtml" 
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:dbt="http://www.exam.com/jsf/facelets">
+
+<ui:define name="subtab-index">1</ui:define>
+<ui:define name="content">
+	<dbt:authCheck checkPermission="users.manage_user"/>
+	
+	<p:panel id="parentPanel" header="#{i18n['user.add_role']}" >		
+		<h:form id="roleForm">
+			<p:growl id="growl" sticky="false" showSummary="true" showDetail="false" life="3000" />
+			
+			<p:panelGrid styleClass="grid" style="width:400px">
+				<p:row>
+					<p:column colspan="2">
+						<span style="color:red">*</span><h:outputText value="#{i18n['common.error_postfix_is_required']}"/>	
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:top;">
+						<span>#{i18n['common.name']}<span style="color:red"> * </span></span>
+					</p:column>
+					<p:column style="vertical-align:top; text-align:right;">
+						<p:inputText id="name" value="#{createRoleController.role.name}" 
+									 style="width:230px;"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:top;">
+						<span>#{i18n['common.description']}</span>
+					</p:column>
+					<p:column style="vertical-align:top;text-align:right;">
+						<p:inputTextarea value="#{createRoleController.role.description}" 
+										  style="width:230px;" cols="20" rows="10" />
+					</p:column>
+				</p:row>					
+			</p:panelGrid>
+			<div id="permissionsPickListDiv">
+				#{i18n['user.permissions']}
+				<p:pickList id="permissionsPickList" value="#{createRoleController.permissionsDualListModel}" var="permission"
+			              itemValue="#{permission}" itemLabel="#{permission.name}" showSourceControls="true" showTargetControls="true"
+			              converter="permissionConverter" style="text-align:left;">
+			
+			      <f:facet name="sourceCaption">#{i18n['user.available_permissions']}</f:facet>
+			      <f:facet name="targetCaption">#{i18n['user.assigned_permissions']}</f:facet>
+			
+			      <p:column>
+			          <h:outputText value="#{permission.description} (#{permission.name})"/>
+			      </p:column>
+			   </p:pickList>
+		  </div> 
+		   <table style="width:400px;text-align:right;">
+		   	<tr>
+		   		<td style="text-align:right;">
+		   			<p:commandButton id="addButton" value="#{i18n['user.create_role']}"
+								update="roleForm"
+								actionListener="#{createRoleController.onCreateRole}" />&#160;&#160;
+					<p:button href="/pages/system/user/roles.jsf" value="#{i18n['common.back']}" />	
+		   		</td>
+		   	</tr>
+		   </table>	
+		</h:form>
+	</p:panel>				
+</ui:define>
+</ui:composition>

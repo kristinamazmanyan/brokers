@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:dbt="http://www.exam.com/jsf/facelets"
+                template="/pages/templates/default.xhtml">
+
+    <ui:define name="title">#{i18n['exam.edit_appl']}</ui:define>
+    <ui:define name="content">
+        <dbt:authCheck checkPermission="exam.manage_exam_members"/>
+
+        <h:form id="mainForm">
+            <p:messages id="messages" showDetail="true" autoUpdate="true"
+                        closable="true" />
+            <p:panelGrid style="width:1024px">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="4">
+                            #{i18n['exam.edit_appl']}
+                        </p:column>
+                    </p:row>
+                </f:facet>
+                <p:row>
+                    <p:column>
+                        <h:outputLabel for="passport" value="#{i18n['common.passport_number']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="passport"
+                                     value="#{editExamMemberController.examMember.passport}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputLabel for="lastName" value="#{i18n['exam.last_name']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="lastName"
+                                     value="#{editExamMemberController.examMember.lastName}" />
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <h:outputLabel for="firstName" value="#{i18n['exam.first_name']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="firstName"
+                                     value="#{editExamMemberController.examMember.firstName}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputLabel for="surname" value="#{i18n['exam.surename']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="surname"
+                                     value="#{editExamMemberController.examMember.surname}" />
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+
+            <br />
+            <br />
+            <br />
+            <p:commandButton value="#{i18n['exam.edit']}" icon="ui-icon-disk"
+                             actionListener="#{editExamMemberController.createMember}"
+                             update="messages" />
+
+
+
+            <p:spacer width="20" />
+
+            <p:button value="#{i18n['exam.back']}" icon="ui-icon-document"
+                      href="#{contextPath}/pages/exams/exam-members.jsf?id=#{editExamMemberController.examId}" />
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

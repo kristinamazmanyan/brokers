@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:dbt="http://www.exam.com/jsf/facelets"
+                template="/pages/templates/default.xhtml">
+
+    <ui:define name="title">#{examMember.firstName} #{examMember.lastName}</ui:define>
+    <ui:define name="content">
+
+        <h:form id="mainForm">
+            <h1>#{quizResultController.resultMsg}</h1>
+
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <h:commandLink styleClass="noblock submit" id="pdf" action="#{quizResultController.download}" value="#{i18n['exam.download']}">
+                <f:param name="isForPdf" value="yes" />
+            </h:commandLink>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <p:commandButton value="#{i18n['exam.end']}" icon="ui-icon-disk"
+                             actionListener="#{quizResultController.logout}" />
+
+
+
+        </h:form>
+
+
+
+    </ui:define>
+
+
+
+</ui:composition>

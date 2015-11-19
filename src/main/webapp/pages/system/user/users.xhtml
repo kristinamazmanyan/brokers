@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  
+				template="/pages/templates/system-template.xhtml" 
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:dbt="http://www.exam.com/jsf/facelets">
+
+<ui:define name="subtab-index">1</ui:define>
+
+	<ui:define name="content">
+		<dbt:authCheck checkPermission="users.view_users"/>
+		
+		<p:panel id="parentPanel" header="#{i18n['user.users']}">
+			<h:form id="usersForm">
+				<p:growl id="growl" sticky="false" showSummary="true" showDetail="false" life="3000" />
+				<p:panel id="listPanel" style="margin-top:30px">
+				
+					<p:dataTable id="usersTable" var="user" widgetVar="usersTableVar"
+							value="#{userListController.users}" selectionMode="single" rowKey="#{user.id}">
+						   						   
+						   <p:column headerText="#{i18n['common.login']}">
+								<span title="#{user.login}">#{user.login}</span>
+						   </p:column>
+						   
+						    <p:column headerText="#{i18n['common.full_name']}">
+								<span title="#{user.fullName}">#{user.fullName}</span>
+						   </p:column>
+						   
+						    <p:column headerText="#{i18n['common.email']}">
+								<span title="#{user.email}">#{user.email}</span>
+						   </p:column>
+						   
+						    <p:column headerText="#{i18n['common.phone']}">
+								<span title="#{user.phone}">#{user.phone}</span>
+						   </p:column>
+						   
+						    <p:column headerText="#{i18n['user.user.last_login']}">
+								<h:outputText value="#{user.lastLogin}">
+									<f:converter converterId="customDateTimeConverter" />
+								</h:outputText>
+						   </p:column> 
+						   
+						   <p:column rendered="#{userDetails.manageUser}" style="width:25px;">
+						   		<p:link styleClass="ui-icon ui-icon-pencil" title="#{i18n['common.edit']}"
+					   					href="/pages/system/user/edit-user.jsf?id=#{user.id}"/>
+						   </p:column>
+						   <p:column rendered="#{userDetails.manageUser}" style="width:25px;">
+						   		<p:commandLink id="deleteButton" update=":usersForm" actionListener="#{userListController.deleteUser}" rendered="#{userDetails.login!=user.login}"
+											   styleClass="ui-icon ui-icon-circle-minus"												   	
+											   onclick="if (!confirm('#{i18n['user.user_delete_confirm']}')) return false;"
+											   title="#{i18n['common.delete']}">
+									<f:param name="userId" value="#{user.id}" />		   
+							    </p:commandLink>
+						   </p:column>						  
+					</p:dataTable>
+
+					<br/>
+					<table>
+						<tr>
+							<td>
+								<p:button rendered="#{userDetails.manageUser}"
+										  href="/pages/system/user/add-user.jsf" 
+										  value="#{i18n['user.add_user']}"/>								
+							</td>
+							<td>
+								<p:button rendered="#{userDetails.manageUser}" 
+										  href="/pages/system/user/roles.jsf" 
+										  value="#{i18n['user.roles']}"/>							
+							</td>
+						</tr>
+					</table>	    
+				</p:panel>											
+			</h:form>		
+		</p:panel>		
+	</ui:define>
+</ui:composition>

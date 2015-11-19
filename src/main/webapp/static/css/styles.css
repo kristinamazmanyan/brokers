@@ -1,0 +1,518 @@
+/*
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /!* Margin bottom by footer height *!/
+    margin-bottom: 25px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /!* Set the fixed height of the footer here *!/
+    /!*height: 25px;*!/
+    background-color: #f5f5f5;
+}
+*/
+body {
+    color: #616161;
+    font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+    font-size: 1em;
+
+}
+
+.btn  {
+    /*background: url(../images/bg_btn.png) #a76e3e repeat-x 0 0;*/
+    border: 1px solid transparent;
+    border-color: #fff #8b7f71 #8b7f71 #fff;
+    color: #FFF;
+    padding: 1px 5px;
+    margin: 0;
+    text-decoration: none;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+    outline: none;
+}
+.btn:hover {
+    color: #fAfAFA;
+    /*outline: 3px auto gainsboro;*/
+    /*outline-offset: -2px;*/
+}
+
+.navbar {
+    margin-bottom:0;
+    background-color:#034f8a;
+}
+.navbar .container, .navbar .container-fluid {
+    margin-bottom:0;
+    background-color:#034f8a;
+}
+.navbar-brand{padding: 0; height: auto;}
+.navbar-default span.navbar-brand{display: block;
+    margin: 11px 0 8px 0;
+    /*width: 100px;*/
+    font-size: 18px;
+    color: #fff;}
+.navbar-default p.navbar-brand {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    width: 850px;
+}
+.navbar-default .navbar-nav > li{padding: 5px 0;}
+.navbar-default .navbar-nav > li:first-child a{border: none;}
+.navbar-default .navbar-nav > li > a{color: #fff; text-decoration: none; font-size: 12px; line-height: 12px; padding: 0 10px; border-left: solid 1px #fff;}
+
+
+/*sec-search-row*/
+.sec-search-row-bg{
+    height: 35px;
+    background-image: url("../images/bg_search.png"), url("../images/bg_left.png"), url("../images/bg_right.png");
+    background-position: left top,left top,right top ;
+    background-repeat: repeat-x, no-repeat, no-repeat;
+    margin: 0 -16px;
+    padding: 5px 25px;
+    color: #ffffff;
+}
+.sec-search-row-bg a{color: #ffffff;}
+.sec-search-row-bg input,
+.sec-search-row-bg button,
+.sec-search-row-bg select{ height: 20px;}
+.sec-search-row-bg .btn{ padding: 0 6px; line-height: 11px; font-size: 11px;}
+
+/*content*/
+.content{margin-top: -4px;}
+.content .container, .content .container-fluid{background: #ffffff; padding-top: 25px;}
+
+
+/*footer*/
+.footer .container,.footer .container-fluid{background: #ffffff;}
+.footer-inner{background-color: #ebddd2; margin: 10px 5px; padding: 10px 10px 0px;}div.panel   div.faq-inline-toolbar {
+    visibility: hidden;
+}
+div.panel:hover  div.faq-inline-toolbar {
+    visibility: visible;
+}
+
+.navigationBreadcrumb {
+     padding: 0px;
+     margin-bottom: 0px;
+     background-color: transparent;
+}
+
+.button-bar {
+    text-align: right;
+    background: #F3EFEC;
+    padding: 10px ;
+    margin: 7px;
+}
+/* menu tweaks*/
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    color: inherit;
+    background: transparent;
+}
+.language-switch > .dropdown-menu {
+    top: auto;
+    min-width: inherit;
+    background: transparent;
+    box-shadow:none;
+    border: none;
+}
+.language-switch .dropdown-menu > li > a {
+    padding: 3px 10px;
+    border: none;
+ }
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    border-color: white;
+}
+
+#body-container {
+    min-height: 450px; /* TODO change to sticky footer */
+
+}
+
+#logoDiv {
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+    width: 40%;
+}
+a {
+    color: #E11818;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.selected {
+    color: #E11818 !important;
+    text-decoration: none !important;
+}
+
+.tab-selected {
+    color: #E11818;
+    text-decoration: none;
+}
+.tab-selected span {
+    color: #E11818;
+    text-decoration: none;
+}
+img {
+    border: medium none;
+}
+
+.breaker {
+    clear: both;
+    font-size: 0;
+    height: 1px;
+}
+
+#header {
+    height: 60px;
+}
+
+.headerMenu {
+    float: right;
+    margin: 10px 10px 10px 5px;
+    font-size: 10px !important;
+}
+.headerMenu li {
+    display: inline;
+}
+.headerMenu li a {
+    /*color: #323232;*/
+    font-weight: bold;
+    margin: 0 0 0 5px;
+    padding: 0 0 0 11px;
+    text-decoration: none;
+}
+.headerMenu li a:hover {
+    color: #E11818;
+    text-decoration: none;
+}
+
+#navigation {
+    border-top: 1px solid #CACACA;
+    font-size: 12px;
+    height: 25px;
+    margin: 20px 0 0;
+    width: 100%;
+}
+#navigation div.menu-link {
+    border-right: 1px solid #D4D4D4;
+    display: block;
+    float: left;
+    list-style: none outside none;
+    margin: 0 0 4px;
+    padding: 0;
+}
+#navigation div.menu-link span {
+    display: block;
+    float: left;
+    height: 22px;
+    position: relative;
+}
+#navigation div.menu-link a {
+    color: #000000;
+    display: block;
+    font-weight: bold;
+    margin: 10px 1em 0;
+    text-decoration: none;
+}
+#navigation div.menu-link a:hover {
+    color: #E11818;
+}
+#navigation div.menu-link.active {
+    background-color: white;
+    border-right: medium none;
+    margin-bottom: -4px;
+    padding-bottom: 4px;
+}
+#navigation div.menu-link.active span {
+    border-right: 1px solid #D4D4D4;
+    border-top-width: 3px;
+}
+#navigation div.menu-link.active a {
+    color: #E11818;
+    position: relative;
+    top: -2px;
+}
+#navigation div.menu-link.active a {
+    color: #E11818;
+    position: relative;
+    top: -2px;
+}
+<!--             -->
+
+.subMenu {
+    font-size: 12px;
+    height: 15px;
+    margin: 5px 0 0;
+    width: 90%;
+    float: left;
+}
+.subMenu div.menu-link {
+    display: block;
+    float: left;
+    list-style: none outside none;
+    margin: 0 0 4px;
+    padding: 0;
+}
+.subMenu div.menu-link span {
+    display: block;
+    float: left;
+    height: 20px;
+    position: relative;
+}
+.subMenu div.menu-link a {
+    color: #000000;
+    display: block;
+    font-weight: bold;
+    margin: 10px 1em 0;
+    text-decoration: none;
+}
+.subMenu div.menu-link a:hover {
+    color: #E11818;
+}
+.subMenu div.menu-link.active {
+    background-color: white;
+    border-right: medium none;
+    margin-bottom: -4px;
+    padding-bottom: 4px;
+}
+.subMenu div.menu-link.active span {
+    border-right: 1px solid #D4D4D4;
+    border-top-width: 3px;
+}
+.subMenu div.menu-link.active a {
+    color: #E11818;
+    position: relative;
+    top: -2px;
+}
+.subMenu div.menu-link.active a {
+    color: #E11818;
+    position: relative;
+    top: -2px;
+}
+
+.tableHeaderLabel {
+    color:#E11818;
+    font-weight:bold;
+    font-style:italic;
+}
+
+.panelAlignCenter {
+    text-align:center;
+}
+
+.dbtAlignRight {
+    text-align: right;
+}
+
+.dbtAlignLeft {
+    text-align: left;
+}
+
+.dbtAlignCenter {
+    text-align: center;
+}
+
+.dbtError {
+    color: red;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.dbtWarining {
+    font-weight: normal;
+    font-style: italic;
+}
+
+.dbtHeader {
+    background: #E7E7E7;
+    color: #E11818;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.dbtFooter {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.dbtTextLabels {
+    font-style:italic; font-weight:bold; white-space: nowrap;
+}
+
+.dbtTextLabelsBig {
+    font-size:20px; font-style:italic; font-weight:bold; white-space: nowrap; color:#018CFF;
+}
+
+.ui-button-custom {
+    background-color:#E11818 !important;
+    border:1px solid #9E9E9E !important;
+    border-radius:3px;
+    color:white !important;
+    font-size:11px !important;
+    float:left;
+    margin-right:10px !important;
+    font-family:Arial !important;
+    height: 9px !important;
+    padding-top:0px !important;
+    padding-bottom:2px !important;
+    margin-top:2px !important;
+}
+
+a.ui-button-custom, a.ui-button-custom:visited, a.ui-button-custom:hover {
+    display:block !important;
+    /*height:24px !important; */
+    padding:5px 10px !important;
+    text-decoration: none;
+}
+
+.ui-command-button {
+    background-color:#E11818 !important;
+    color:white !important;
+    border-radius:3px;
+    border:1px solid #9E9E9E !important;
+}
+
+.grid {
+    width: 100%;
+    padding: 4px;
+}
+
+.grid tr,.grid td {
+    border-style: none !important;
+    background: none;
+}
+
+#outer-wrapper {
+    /*padding-top:32px;*/
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+    z-index: 90;
+}
+
+#header {
+    height: 48px;
+    background-color:#034f8a;
+}
+
+.header-top{
+    background-color:white !important;
+}
+.navigationTab {
+    background-color:#034f8a !important;
+}
+
+.ui-menu .ui-menubar {
+    background: repeat-x scroll 50% 50% #D7EBF9;
+    border: 1px solid #AED0EA;
+    color: #2779AA;
+    font-weight: bold;
+}
+
+.ui-menu.ui-widget li.ui-corner-all, .ui-menu.ui-widget a.ui-corner-all {
+    padding:0px 10px;
+    text-align:center;
+}
+
+.ui-menu.ui-menubar {
+    background-image:none !important;
+    background-color:#034f8a;
+}
+
+.ui-menu.ui-widget a {
+    color:#fff;
+    text-transform:uppercase;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+/* Hides from IE-mac \*/
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+/* End hide from IE-mac */
+/* End floating fixation */
+.fleft {
+    float: left;
+}
+
+.fright {
+    float: right;
+}
+
+.block {
+    display: block;
+}
+
+.center {
+    text-align: center;
+}
+
+.content {
+    padding: 10px 20px;
+    padding-bottom: 40px;
+}
+
+
+span.logged-name {
+    text-transform: lowercase;
+    font-style: italic;
+    font-size: 11px;
+    padding-top: 5px;
+}
+
+
+.grid {
+    width: 100%;
+    padding: 4px;
+}
+
+.grid tr,.grid td {
+    border-style: none !important;
+    background: none;
+}
+
+
+#permissionsPickListDiv .ui-picklist .ui-picklist-list{
+    width:400px !important;
+}
+
+.logo a,.logo a:visited {
+    background: url(../images/logo.png) no-repeat 0px 2px;
+    width: 92px;
+    height: 115px;
+    display: block;
+    margin-left: 20px;
+}
+.report-checkbox-col {
+    text-align: center;
+}

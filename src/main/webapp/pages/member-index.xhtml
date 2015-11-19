@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/pages/templates/default.xhtml">
+
+    <ui:define name="content">
+
+        <h:form id="loginMember" rendered="#{examMember != null}">
+            <p:fieldset toggleable="false"
+                        style="width: 400px; margin-left: 20px; margin-top:20px">
+                <table width="80%">
+                    <tr>
+                        <th colspan="2" align="center"><h:outputLabel
+                                value="#{i18n['exam.personal_data']}" /></th>
+                    </tr>
+                    <tr>
+                        <td align="left"><b><h:outputLabel
+                                value="#{i18n['exam.first_name']}:" /></b></td>
+                        <td align="right"><h:outputLabel
+                                value="#{examMember.firstName}" /></td>
+                    </tr>
+                    <tr>
+                        <td align="left"><b><h:outputLabel
+                                value="#{i18n['exam.last_name']}:" /></b></td>
+                        <td align="right"><h:outputLabel
+                                value="#{examMember.lastName}" /></td>
+                    </tr>
+                    <tr>
+                        <td align="left"><b><h:outputLabel
+                                value="#{i18n['exam.surename']}:" /></b></td>
+                        <td align="right"><h:outputLabel
+                                value="#{examMember.surname}" /></td>
+                    </tr>
+                    <tr>
+                        <td align="left"><b><h:outputLabel
+                                value="#{i18n['common.passport_number']}:" /></b></td>
+                        <td align="right"><h:outputLabel
+                                value="#{examMember.passport}" /></td>
+                    </tr>
+
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr>
+
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2">
+                            <p:button value="#{i18n['exam.start']}" icon="ui-icon-document"
+                                      href="#{contextPath}/pages/quiz/quiz.jsf" rendered="#{examMember.status==1 || examMember.status==3}"/>
+
+
+                        </td>
+                    </tr>
+                </table>
+            </p:fieldset>
+
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

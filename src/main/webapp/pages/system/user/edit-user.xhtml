@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  
+				template="/pages/templates/system-template.xhtml" 
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:dbt="http://www.exam.com/jsf/facelets">
+
+<ui:define name="subtab-index">1</ui:define>
+<ui:define name="content">
+	<dbt:authCheck checkPermission="users.manage_user"/>
+	
+	<p:panel id="parentPanel" header="#{i18n['user.edit_user']}" style="width:70%;">		
+		<h:form id="userForm">
+			<p:growl id="growl" sticky="false" showSummary="true" showDetail="false" life="3000" />
+			
+			<p:panelGrid styleClass="grid">
+				<p:row>
+					<p:column colspan="2">
+						<span style="color:red">*</span><h:outputText value="#{i18n['common.error_postfix_is_required']}"/>	
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:top;">
+						<span>#{i18n['common.login']}<span style="color:red"> * </span></span>
+					</p:column>
+					<p:column style="vertical-align:top; text-align:left;">
+						<p:inputText id="name" value="#{editUserController.user.login}" 
+									 style="width:230px;"/>
+					</p:column>
+				</p:row>				
+				<p:row>
+					<p:column style="vertical-align:top;">
+						<span>#{i18n['common.full_name']}</span>
+					</p:column>
+					<p:column style="vertical-align:top; text-align:left;">
+						<p:inputText id="fullName" value="#{editUserController.user.fullName}" 
+									 style="width:230px;"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:top;">
+						<span>#{i18n['common.email']}</span>
+					</p:column>
+					<p:column style="vertical-align:top; text-align:left;">
+						<p:inputText id="email" value="#{editUserController.user.email}" 
+									 style="width:230px;"/>	
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:top;">
+						<span>#{i18n['common.phone']}</span>
+					</p:column>
+					<p:column style="vertical-align:top; text-align:left;">
+						<p:inputText id="phone" value="#{editUserController.user.phone}" 
+									 style="width:230px;"/>	
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="2" style="vertical-align:top;">
+						#{i18n['user.roles']}
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="2" style="vertical-align:top;">
+						<p:pickList id="rolesPickList" value="#{editUserController.rolesDualListModel}" var="role"
+					              itemValue="#{role}" itemLabel="#{role.name}" showSourceControls="true" showTargetControls="true"
+					              converter="roleConverter">
+					
+					      <f:facet name="sourceCaption">#{i18n['user.available_roles']}</f:facet>
+					      <f:facet name="targetCaption">#{i18n['user.assigned_roles']}</f:facet>
+					
+					      <p:column style="width:50%">
+					          <h:outputText value="#{role.name}" />
+					      </p:column>
+					
+					      <p:column style="width:50%;">
+					          <h:outputText value="#{role.description}" />
+					      </p:column>
+					   </p:pickList>	
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="2" style="vertical-align:top;text-align:right;">
+						<p:commandButton id="saveButton" value="#{i18n['user.update_user']}"
+								update="userForm"
+								actionListener="#{editUserController.onSaveUser}" />&#160;&#160;
+						<p:button href="/pages/system/user/users.jsf" value="#{i18n['common.back']}" />		
+					</p:column>
+				</p:row>	
+			</p:panelGrid>
+			
+					
+		</h:form>
+	</p:panel>				
+</ui:define>
+</ui:composition>

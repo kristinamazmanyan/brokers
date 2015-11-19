@@ -1,0 +1,248 @@
+
+element.style {
+    margin-right: 20px;
+}
+.ui-widget .ui-widget {
+    font-size: 1em;
+}
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+    font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+    font-size: 1em;
+}
+.ui-widget {
+    font-size: 12px !important;
+}
+.ui-button {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 0.1em;
+    overflow: visible;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none !important;
+}
+.ui-corner-all {
+    border-radius: 6px 6px 6px 6px;
+}
+.ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary {
+    font-weight: bold;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background: url("/showcase/javax.faces.resource/images/ui-bg_glass_80_d7ebf9_1x400.png.jsf?ln=primefaces-cupertino") repeat-x scroll 50% 50% #D7EBF9;
+    border: 1px solid #AED0EA;
+    color: #2779AA;
+    font-weight: bold;
+}
+.ui-widget {
+    font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+    font-size: 1.1em;
+}
+.ui-widget {
+    font-size: 12px !important;
+}
+.ui-widget {
+    font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+    font-size: 1.1em;
+}
+body {
+    color: #616161;
+}
+
+.ui-menu .ui-menubar {
+	background: repeat-x scroll 50% 50% #D7EBF9;
+    border: 1px solid #AED0EA;
+    color: #2779AA;
+    font-weight: bold;
+	
+}
+
+.ui-layout-unit .ui-layout-unit-content {
+	/*overflow:hidden !important;*/
+}
+
+
+
+
+
+
+ /*color:#000;*/
+ /*text-decoration:none;*/
+ /*outline:none;}*/
+ 
+a:hover {
+ color:#999;}
+
+a img {
+ border:none;}
+p, h1, h2, h3, h4, h5, h6, form, ul, li {
+ margin:0px;
+ padding:0px;}
+ 
+ul, li {
+ list-style-type:none;}
+ul li {
+ }
+ 
+select {
+ height:20px;} 
+.clearfix:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+.clearfix {display: inline-block;}
+
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+/* End floating fixation */
+
+.fleft {
+ float:left;}
+
+.fright {
+ float:right;}
+ 
+.block {
+ display:block;}
+.left {
+ text-align:left;}
+ 
+.right {
+ text-align:right;}
+ 
+.center {
+ text-align:center;}
+ 
+.center-important {
+ text-align:center !important;}
+.border-none {
+ border:none;}
+.bold {
+ font-weight:bold;}
+/* Start layout styles */
+#outer-wrapper {
+ background-color:#034f8a;
+ padding:27px 14px 9px 14px;}
+ 
+#inner-wrapper {
+ background-color:#fff;
+ border:1px solid #024070;
+ padding:17px 14px;
+ }
+ 
+.logo {
+ background:url(../img/logo.jpg) no-repeat top left;
+ width:112px;
+ height:427px;
+ margin-top:-33px;
+ color:#fff;
+ padding:320px 0px 0px 10px;
+ font-size:14px;
+ font-weight:bold;}
+ 
+h1 {
+ font-size:16px;
+ color:#00213a;
+ padding-bottom:10px;
+ text-transform:uppercase;
+ font-weight:bold;
+ padding:10px 0px;}
+/* End layout styles */
+
+/* Start tables styles */
+/*table {
+ border-collapse:collapse;
+ width:100%;}
+ 
+td {
+ background-color:#e6e6e6;
+ font-size:12px;
+ color:#2d2d2d;
+ padding:3px 5px 3px 10px;
+ border:2px solid #fff;}
+ 
+tr.blue th {
+ background-color:#aedcff;
+ font-size:22px;
+ font-weight:bold;
+ text-transform:uppercase;
+ padding:3px 10px;
+ border:2px solid #fff;
+ color:#2d2d2d;
+ text-align:left;}
+
+
+tr.grey th {
+ background-color:#949494;
+ font-size:22px;
+ font-weight:bold;
+ text-transform:uppercase;
+ padding:3px 10px;
+ border:2px solid #fff;
+ color:#fff;
+ text-align:left;}
+ 
+tr.all-grey td {
+ background-color:#949494;
+ color:#fff;
+ font-size:14px;
+ }
+ 
+tr.all-blue td {
+ background-color:#aedcff;
+ color:#2d2d2d;
+ font-size:14px;}
+tr.free td {
+ background-color:#ffa3a6;}
+ 
+tr.alltypes td {
+ font-weight:bold;}*/
+/* End tables styles */
+
+/* Start constants */
+.width100per {
+ width:100%;}
+ 
+.width90per {
+ width:90%;}
+ 
+.width20per {
+ width:20%;}
+ 
+.width40per {
+ width:40%;}
+
+.width5per {
+ width:5%;}
+.marginB20 {
+ margin-bottom:20px;}
+/* End constants */
+
+
+
+
+.ui-menu.ui-widget li.ui-corner-all, .ui-menu.ui-widget a.ui-corner-all {
+	padding:0px 10px;
+	text-align:center;
+}
+
+.ui-menu.ui-menubar {
+	background-image:none !important;
+	background-color:#034f8a;
+}
+
+.ui-menu.ui-widget a {
+	color:#fff;
+	text-transform:uppercase;
+}
+
+td.column1 {
+
+	width:20px !important;
+}

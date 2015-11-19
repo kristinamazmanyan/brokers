@@ -1,0 +1,367 @@
+
+body {
+    border: medium none;
+    font-family: "Arian AMU","Arial AMU","Arial Unicode",Arial,Helvetica,sans-serif !important;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+.dbtInput {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    color: #444444;
+    padding-right: 5px;
+    width: 200px;
+}
+#logoDiv {
+	position: relative;
+	float: left;
+	margin-left: 10px;
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 2px;
+	margin-bottom: 2px;
+	width: 40%;
+}
+a {
+    color: #E11818;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.selected {
+	color: #E11818 !important;
+    text-decoration: none !important;
+}
+
+.tab-selected {
+	color: #E11818;
+    text-decoration: none;
+}
+.tab-selected span {
+	color: #E11818;
+    text-decoration: none;
+}
+img {
+    border: medium none;
+}
+
+.breaker {
+    clear: both;
+    font-size: 0;
+    height: 1px;
+}
+
+#header {
+    height: 60px;
+}
+
+.headerMenu {
+    float: right;
+    margin: 10px 10px 10px 5px;
+    font-size: 10px !important;
+}
+.headerMenu li {
+    display: inline;
+}
+.headerMenu li a {
+    color: #323232;
+    font-weight: bold;
+    margin: 0 0 0 5px;
+    padding: 0 0 0 11px;
+    text-decoration: none;
+}
+.headerMenu li a:hover {
+    color: #E11818;
+    text-decoration: none;
+}
+
+#navigation {
+    border-top: 1px solid #CACACA;
+    font-size: 12px;
+    height: 25px;
+    margin: 20px 0 0;
+    width: 100%;
+}
+#navigation div.menu-link {
+    border-right: 1px solid #D4D4D4;
+    display: block;
+    float: left;
+    list-style: none outside none;
+    margin: 0 0 4px;
+    padding: 0;
+}
+#navigation div.menu-link span {
+    display: block;
+    float: left;
+    height: 22px;
+    position: relative;
+}
+#navigation div.menu-link a {
+    color: #000000;
+    display: block;
+    font-weight: bold;
+    margin: 10px 1em 0;
+    text-decoration: none;
+}
+#navigation div.menu-link a:hover {
+    color: #E11818;
+}
+#navigation div.menu-link.active {
+    background-color: white;
+    border-right: medium none;
+    margin-bottom: -4px;
+    padding-bottom: 4px;
+}
+#navigation div.menu-link.active span {
+    border-right: 1px solid #D4D4D4;
+    border-top-width: 3px;
+}
+#navigation div.menu-link.active a {
+    color: #E11818;
+    position: relative;
+    top: -2px;
+}
+#navigation div.menu-link.active a {
+    color: #E11818;
+    position: relative;
+    top: -2px;
+}
+<!--             -->
+
+.subMenu {
+    font-size: 12px;
+    height: 15px;
+    margin: 5px 0 0;
+    width: 90%;
+    float: left;
+}
+.subMenu div.menu-link {
+    display: block;
+    float: left;
+    list-style: none outside none;
+    margin: 0 0 4px;
+    padding: 0;
+}
+.subMenu div.menu-link span {
+    display: block;
+    float: left;
+    height: 20px;
+    position: relative;
+}
+.subMenu div.menu-link a {
+    color: #000000;
+    display: block;
+    font-weight: bold;
+    margin: 10px 1em 0;
+    text-decoration: none;
+}
+.subMenu div.menu-link a:hover {
+    color: #E11818;
+}
+.subMenu div.menu-link.active {
+    background-color: white;
+    border-right: medium none;
+    margin-bottom: -4px;
+    padding-bottom: 4px;
+}
+.subMenu div.menu-link.active span {
+    border-right: 1px solid #D4D4D4;
+    border-top-width: 3px;
+}
+.subMenu div.menu-link.active a {
+    color: #E11818;
+    position: relative;
+    top: -2px;
+}
+.subMenu div.menu-link.active a {
+    color: #E11818;
+    position: relative;
+    top: -2px;
+}
+
+.tableHeaderLabel {
+	color:#E11818;
+	font-weight:bold;
+	font-style:italic;
+}
+
+.panelAlignCenter {
+	text-align:center;
+}
+
+.dbtAlignRight {
+	text-align: right;
+}
+
+.dbtAlignLeft {
+	text-align: left;
+}
+
+.dbtAlignCenter {
+	text-align: center;
+}
+
+.dbtError {
+	color: red;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.dbtWarining {
+	font-weight: normal;
+	font-style: italic;
+}
+
+.dbtHeader {
+	background: #E7E7E7;
+	color: #E11818;
+	font-size: 12px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.dbtFooter {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.dbtTextLabels {
+	font-style:italic; font-weight:bold; white-space: nowrap;
+}
+
+.dbtTextLabelsBig {
+	font-size:20px; font-style:italic; font-weight:bold; white-space: nowrap; color:#018CFF;
+}
+
+.ui-button-custom {
+	background-color:#E11818 !important;
+	border:1px solid #9E9E9E !important;
+	border-radius:3px;
+	color:white !important;
+	font-size:11px !important;
+	float:left;
+	margin-right:10px !important;
+	font-family:Arial !important;
+	height: 9px !important;
+	padding-top:0px !important;
+	padding-bottom:2px !important;
+	margin-top:2px !important;
+}
+
+a.ui-button-custom, a.ui-button-custom:visited, a.ui-button-custom:hover {
+	display:block !important;
+	/*height:24px !important; */
+	padding:5px 10px !important;
+	text-decoration: none;
+}
+
+.ui-command-button {
+	background-color:#E11818 !important;
+	color:white !important;
+	border-radius:3px;
+	border:1px solid #9E9E9E !important;
+}
+
+.grid {
+	width: 100%;
+	padding: 4px;
+}
+
+.grid tr,.grid td {
+	border-style: none !important;
+	background: none;
+}
+
+#outer-wrapper {
+	/*padding-top:32px;*/
+	width: 100%;
+	min-height: 100%;
+	position: relative;
+	z-index: 90;
+}
+
+#header {
+	height: 48px;
+}
+
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+/* Hides from IE-mac \*/
+* html .clearfix {
+	height: 1%;
+}
+
+.clearfix {
+	display: block;
+}
+/* End hide from IE-mac */
+/* End floating fixation */
+.fleft {
+	float: left;
+}
+
+.fright {
+	float: right;
+}
+
+.block {
+	display: block;
+}
+
+.center {
+	text-align: center;
+}
+
+.content {
+	padding: 10px 20px;
+	padding-bottom: 40px;
+}
+
+
+span.logged-name {
+	text-transform: lowercase;
+	font-style: italic;
+	font-size: 11px;
+	padding-top: 5px;
+}
+
+
+.grid {
+	width: 100%;
+	padding: 4px;
+}
+
+.grid tr,.grid td {
+	border-style: none !important;
+	background: none;
+}
+
+
+#permissionsPickListDiv .ui-picklist .ui-picklist-list{
+    width:400px !important;
+}
+
+.logo a,.logo a:visited {
+	background: url(../img/logo.jpg) no-repeat 0px 2px;
+	width: 65px;
+	height: 60px;
+	display: block;
+	margin-left: 20px;
+}
+.report-checkbox-col {
+    text-align: center;
+}

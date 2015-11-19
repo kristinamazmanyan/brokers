@@ -1,0 +1,31 @@
+1. Required softwares
+
+	a) java 1.7
+	b) application server - apache-tomcat-Apache 7.0.22
+	c) database server - mysql 5.5, postgresql 9
+	d) designer tool for jasperreports - iReport-5.0.0 (needed only for changing report templates)
+
+
+1. Create database 
+run the following scripts in setup/db/ folder:
+	a) database_schema.sql 
+	b) functions_procedures.sql
+	c) inserts.sql
+
+2. Set environment variable 
+com_exam_HOME = [application home dir]
+
+in catalina.sh (.bat)
+JAVA_OPTS=$JAVA_OPTS"
+     -Dcom_springjsfdemo_HOME=HOME_PATH"
+
+3. Set Database settings
+{HOME}/config/jdbc.properties
+
+4. Set tempdir
+{HOME}/config/application.properties
+temp.dir=
+
+5. default user is superadmin
+user:superadmin
+user:superadmin

@@ -1,0 +1,94 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:dbt="http://www.exam.com/jsf/facelets"
+                template="/pages/templates/default.xhtml">
+
+
+
+    <ui:define name="title">#{examMember.firstName} #{examMember.lastName}
+        <div id="rezult" align="center"></div>
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="mainForm">
+            <h:inputHidden value="#{quizController.endDate}" id="enddate"/>
+            <h:inputHidden value="#{quizController.startDate}" id="startdate"/>
+            <h:inputHidden value="#{quizController.alertMsg}" id="alertmsg"/>
+            <p:dataTable value="#{quizController.questions}" var="question"
+                         onExpandStart="Down()">
+
+                <f:facet name="header">
+                    <h:outputText value="#{i18n['exam.harcashar']}"></h:outputText>
+                </f:facet>
+                <p:column>
+                    <h:outputText value="#{question.number}. #{question.question}" />
+                    <p:outputPanel id="customPanel">
+                        <p:selectOneRadio id="customRadio" value="#{question.userAnswer}"
+                                          layout="custom" style="width: 20px !important;">
+                            <f:selectItem itemLabel="#{question.answerA}" itemValue="1" />
+                            <f:selectItem itemLabel="#{question.answerB}" itemValue="2" />
+                            <f:selectItem itemLabel="#{question.answerC}" itemValue="3" />
+                            <f:selectItem itemLabel="#{question.answerD}" itemValue="4" />
+                        </p:selectOneRadio>
+
+                        <p:panelGrid columnClasses="column1, column2" columns="2">
+                            <p:radioButton id="opt1" for="customRadio" itemIndex="0" />
+                            <h:outputLabel for="opt1" value="#{question.answerA}" />
+
+
+                            <p:radioButton id="opt2" for="customRadio" itemIndex="1" />
+                            <h:outputLabel for="opt2" value="#{question.answerB}" />
+
+
+                            <p:radioButton id="opt3" for="customRadio" itemIndex="2" />
+                            <h:outputLabel for="opt3" value="#{question.answerC}" />
+
+                            <p:radioButton id="opt4" for="customRadio" itemIndex="3" />
+                            <h:outputLabel for="opt4" value="#{question.answerD}" />
+                        </p:panelGrid>
+                    </p:outputPanel>
+
+                </p:column>
+            </p:dataTable>
+            <p:messages id="messages" showDetail="true" autoUpdate="true"
+                        closable="true" />
+            <p:commandButton value="#{i18n['exam.submit']}" icon="ui-icon-disk"
+                             actionListener="#{quizController.save}" />
+            <p:poll interval="300"
+                    listener="#{quizController.save1}" />
+            <p:poll interval="#{quizController.finalEnd}"
+                    listener="#{quizController.finalSave}"/>
+
+        </h:form>
+        <script type="text/javascript">
+            var today = '#{quizController.startDate}';
+            today =new Number(today);
+
+            function countdown() {
+
+                var end =document.getElementById('mainForm:enddate').value;
+
+                var alertmsg =document.getElementById('mainForm:alertmsg').value;
+                var dateX = new Date(end - today);
+
+                var minutes =dateX.getMinutes()+ (dateX.getHours()-4)*60;
+                if(minutes==10)
+                    if(dateX.getSeconds()==0)
+                        alert(alertmsg);
+                date_to_write = '<div >'
+                        + (minutes.toString() + ' : '
+                        + dateX.getSeconds().toString() + '</div>');
+                var result = document.getElementById('rezult');
+                result.innerHTML = date_to_write;
+                today=today+1000;
+            }
+            countdown();
+            setInterval(countdown, 1000);
+        </script>
+    </ui:define>
+
+
+
+</ui:composition>

@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  
+				template="/pages/templates/system-template.xhtml" 
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:dbt="http://www.exam.com/jsf/facelets">
+
+<ui:define name="subtab-index">1</ui:define>
+
+	<ui:define name="content">
+		<dbt:authCheck checkPermission="event.view_events"/>
+		
+		<p:panel id="parentPanel" header="#{i18n['event.events']}">
+			<h:form id="eventsForm">
+				<p:growl id="growl" sticky="false" showSummary="true" showDetail="false" life="3000" />
+				
+				<p:panelGrid styleClass="grid">
+					<p:row>
+						<p:column style="vertical-align:top;">
+							<span>#{i18n['event.performed_by']}</span>
+						</p:column>
+						<p:column style="vertical-align:top;">
+							<p:selectOneMenu id="performedBy" style="width: 200px;"
+											     value="#{eventListController.searchEventBean.performedBy}">
+							    <f:converter converterId="javax.faces.Long"/>									     
+								<f:selectItem itemValue="" itemLabel="" />										     
+								<f:selectItems value="#{eventListController.userSelectItems}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="vertical-align:top;">	
+							<span>#{i18n['event.created_date']}</span>
+						</p:column>
+						<p:column style="vertical-align:top;">
+							<p:calendar id="createdAtStart" value="#{eventListController.searchEventBean.createdAtStart}" 
+									    pattern="dd/MM/yyyy"/>
+							&#160;		    
+							<p:calendar id="createdAtEnd" value="#{eventListController.searchEventBean.createdAtEnd}" 
+										pattern="dd/MM/yyyy"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:commandButton id="searchButton" value="#{i18n['common.search']}"
+									update="listPanel"
+									actionListener="#{eventListController.onSearch}" />&#160;&#160;
+							<p:commandButton id="clearButton" value="#{i18n['common.clear']}"
+									update=":parentPanel"
+									actionListener="#{eventListController.onClearSearch}" />		
+						</p:column>
+					</p:row>					
+				</p:panelGrid>
+				<p:panel id="listPanel" style="margin-top:30px">
+					<p:dataTable id="eventsDataTable" var="event" widgetVar="eventsDataTableVar"
+							value="#{eventListController.eventsLazyDataModel}"
+							rowKey="#{event.id}"
+							selectionMode="single"
+							paginator="true" lazy="true" dynamic="true" cache="false"
+							paginatorPosition="bottom" paginatorAlwaysVisible="false"
+							rows="#{eventListController.pageSize}"
+							paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport} {RowsPerPageDropdown}"
+						    rowsPerPageTemplate="10,20,40,100">
+						   						   
+						   <p:column style="width:100px;" headerText="#{i18n['event.event_type']}" 
+						   		     sortBy="#{event.eventType}">
+								<span title="#{event.eventType}">#{event.eventType}</span>
+						   </p:column>
+						   
+						    <p:column headerText="#{i18n['event.message']}" 
+						   		     sortBy="#{event.message}">
+								<div style="overflow:auto;width: 700px !important;white-space:normal !important">
+				                	<h:outputText value="#{event.message}" title="#{event.message}"/>
+				                </div>
+						   </p:column>
+						   
+						    <p:column headerText="#{i18n['event.performed_by']}" 
+						   		     sortBy="#{event.performedBy}" style="width:150px;">
+								<span title="#{event.performedBy}">#{event.performedBy}</span>
+						   </p:column>
+						   
+						    <p:column headerText="#{i18n['event.performed_on']}"
+						   		     sortBy="#{event.performedOn}" style="width:120px;">
+								<span title="#{event.performedOn}">#{event.performedOn}</span>
+						   </p:column>
+						   
+						    <p:column headerText="#{i18n['event.created_date']}" 
+						   		     sortBy="#{event.createdAt}" style="width:120px;">
+								<h:outputText value="#{event.createdAt}">
+				                	<f:converter converterId="customDateTimeConverter" />
+				                </h:outputText>
+						   </p:column> 						   
+					</p:dataTable>	    
+				</p:panel>
+				<p:blockUI id="blockUI" widgetVar="blockUI" block=":eventsForm" 
+					   trigger=":eventsForm:eventsDataTable :eventsForm:searchButton :eventsForm:clearButton">  
+		        <p:graphicImage value="/static/img/loading.gif"/>  
+		    </p:blockUI>	
+			</h:form>		
+		</p:panel>		
+	</ui:define>
+</ui:composition>

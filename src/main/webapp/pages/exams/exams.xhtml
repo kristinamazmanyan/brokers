@@ -1,0 +1,210 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:dbt="http://www.exam.com/jsf/facelets"
+                template="/pages/templates/default.xhtml">
+
+
+    <ui:define name="subtab-index">1</ui:define>
+    <ui:define name="title">#{i18n['exam.exams']}</ui:define>
+    <ui:define name="content">
+        <dbt:authCheck checkPermission="exam.view_exams"/>
+
+        <h:form id="searchForm"                >
+            <p:messages id="messages" showDetail="true" autoUpdate="true"
+                        closable="true" />
+
+            <p:panelGrid style="width:1024px">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="6">
+                            #{i18n['exam.search']}
+                        </p:column>
+                    </p:row>
+                </f:facet>
+
+                <p:row>
+                    <p:column>
+                        <h:outputLabel for="name" value="#{i18n['exam.exam_name']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="name"
+                                     value="#{examListController.searchBean.name}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputLabel for="condition" value="#{i18n['exam.exam_condition']}" />
+                    </p:column>
+                    <p:column>
+                        <p:selectOneMenu value="#{examListController.searchBean.archived}" effect="fade" id="condition" >
+                            <f:selectItems value="#{examListController.examConditionListModel}"  var="examCondition"  itemLabel="#{examCondition.name}" itemValue="#{examCondition.id}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                </p:row>
+                <p:row>
+
+                    <p:column>
+                        <h:outputLabel for="start_date" value="#{i18n['exam.exam_date']}" />
+                    </p:column>
+
+                    <p:column>
+                        <p:calendar value="#{examListController.searchBean.startDate}"
+                                    id="start_date" pattern="dd/MM/yyyy" mode="popup" showOn="button">
+
+                        </p:calendar>
+                    </p:column>
+                    <p:column>
+                        <h:outputLabel for="end_date" value="&#45;&#45;" />
+                    </p:column>
+                    <p:column >
+                        <p:calendar value="#{examListController.searchBean.endDate}"
+                                    id="end_date" pattern="dd/MM/yyyy" mode="popup" showOn="button">
+
+                        </p:calendar>
+                    </p:column>
+
+
+                </p:row>
+
+            </p:panelGrid>
+            <br />
+            <p:commandButton id="searchButton" value="#{i18n['exam.search']}"
+                             icon="ui-icon-search"
+                             actionListener="#{examListController.search}" update="dataTable"
+                             onstart="this.disabled=true" oncomplete="this.disabled=false"
+                             onclick="resetDataTable()" />
+            <p:spacer width="20" />
+            <p:commandButton value="#{i18n['exam.reset']}" icon="ui-icon-cancel"
+                             onclick="resetDataTable()"
+                             actionListener="#{examListController.reset}"
+                             update=":searchForm" />
+            <br />
+            <br />
+            <br />
+
+            <p:dataTable id="dataTable" var="exam"
+                         value="#{examListController.lazyExamDataModel}"
+                         widgetVar="datatableVar" rowIndexVar="rowIndex"
+                         selectionMode="single" paginator="true" lazy="true" dynamic="true"
+                         cache="false" paginatorPosition="bottom"
+                         paginatorAlwaysVisible="false"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rows="#{examListController.pageSize}"
+                         rowsPerPageTemplate="10,20,40,100">
+
+                <p:column headerText=" #{i18n['exam.exam_name']}"
+                          sortBy="#{exam.name}">
+                    #{exam.name}
+                </p:column>
+
+                <p:column headerText=" #{i18n['exam.exam_date']}"
+                          sortBy="#{exam.startDate}">
+                    #{exam.startDate}
+                </p:column>
+
+                <p:column rendered="#{userDetails.viewCommitteeMembers}">
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.committee_members']}" />
+                    </f:facet>
+                    <a
+                            href="#{facesContext.externalContext.request.contextPath}/pages/exams/committee_members.jsf?id=#{exam.id}"
+                            title="#{i18n['exam.members']}"> #{i18n['exam.members']} </a>
+                </p:column>
+
+                <p:column rendered="#{userDetails.viewExamMembers}">
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.exam_members']}" />
+                    </f:facet>
+                    <a
+                            href="#{facesContext.externalContext.request.contextPath}/pages/exams/exam-members.jsf?id=#{exam.id}"
+                            title="#{i18n['exam.exam_members']}"> #{i18n['exam.exam_members']} </a>
+                </p:column>
+
+                <p:column rendered="#{userDetails.manageExamQuеstions}">
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.questionary']}" />
+                    </f:facet>
+                    <a
+                            href="#{facesContext.externalContext.request.contextPath}/pages/exams/import-exam-questions.jsf?id=#{exam.id}"
+                            title="#{i18n['exam.questionary']}"> #{i18n['exam.questionary']} </a>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.appl_result']}" />
+                    </f:facet>
+
+                    <h:commandLink styleClass="noblock submit" id="pdfres2" action="#{examListController.downloadResult}" value="#{i18n['exam.appl_result']}" >
+                        <f:param name="isForPdf" value="yes" />
+                        <f:param name="examId" value="#{exam.id}" />
+                    </h:commandLink>
+
+                </p:column>
+
+                <p:column rendered="#{userDetails.manageExams}">
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.edit']}" />
+                    </f:facet>
+                    <a
+                            href="#{facesContext.externalContext.request.contextPath}/pages/exams/edit-exam.jsf?id=#{exam.id}"
+                            title="#{i18n['exam.edit']}"> #{i18n['exam.edit']} </a>
+                </p:column>
+
+               <p:column rendered="#{userDetails.manageExams}">
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.delete']}" />
+                    </f:facet>
+
+                    <p:commandLink id="showDialogButton1" value="#{i18n['exam.delete']}"
+                                   icon="ui-icon-close" actionListener="#{examListController.deleteExam}"
+                                   ajax="true" update="dataTable">
+                        <f:param name="examId" value="#{exam.id}" />
+                        <p:confirm header="#{i18n['exam.delete_exam']}" message="#{i18n['exam.exam_delete_confirm']}" icon="ui-icon-alert" />
+                    </p:commandLink>
+
+
+                </p:column>
+
+                <p:column rendered="#{userDetails.manageExams}">
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.archive']}" />
+                    </f:facet>
+
+                    <p:commandLink id="showDialogButton2" value="#{i18n['exam.archive']}"
+                                   icon="ui-icon-close" actionListener="#{examListController.archiveExam}" rendered="#{exam.archived == 0 }"
+                                   ajax="true" update="dataTable">
+                        <f:param name="examId" value="#{exam.id}" />
+                        <p:confirm header="#{i18n['exam.archive_exam']}" message="#{i18n['exam.exam_archive_confirm']}" icon="ui-icon-alert" />
+                    </p:commandLink>
+
+
+                </p:column>
+
+            </p:dataTable>
+
+            <p:button value="#{i18n['exam.create_exam']}" icon="ui-icon-document"
+                      href="#{contextPath}/pages/exams/create-exam.jsf" rendered="#{userDetails.manageExams}"/>
+            <p:spacer width="20" />
+            <p:button value="#{i18n['exam.back']}" icon="ui-icon-back"
+                      outcome="exams.xhtml" />
+
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                <p:commandButton value="#{i18n['exam.yes']}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="#{i18n['exam.no']}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" vidgetVar="blockUI" block="searchForm" trigger="dataTable searchButton">
+                <p:graphicImage value="#{contextPath}/static/img/loading.gif"/>
+            </p:blockUI>
+
+
+        </h:form>
+        <script type="text/javascript">
+            function resetDataTable() {
+                datatableVar.getPaginator().setPage(0);
+            }
+        </script>
+    </ui:define>
+</ui:composition>

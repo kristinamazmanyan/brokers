@@ -1,0 +1,82 @@
+package com.brokerexam.common.docx4j;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.JAXBElement;
+
+import org.docx4j.openpackaging.exceptions.Docx4JException;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.wml.ContentAccessor;
+import org.docx4j.wml.STBrType;
+import org.docx4j.wml.Text;
+
+public class Docx4jUtils {
+
+	public static WordprocessingMLPackage getTemplate(String name)
+			throws Docx4JException, FileNotFoundException {
+		WordprocessingMLPackage template = WordprocessingMLPackage
+				.load(new FileInputStream(new File(name)));
+		return template;
+	}
+
+	public static void writeDocxToStream(WordprocessingMLPackage template,
+			String target) throws IOException, Docx4JException {
+		File f = new File(target);
+		template.save(f);
+	}
+
+	public static List<Object> getAllElementFromObject(Object obj,
+			Class<?> toSearch) {
+		List<Object> result = new ArrayList<Object>();
+		if (obj instanceof JAXBElement)
+			obj = ((JAXBElement<?>) obj).getValue();
+
+		if (obj.getClass().equals(toSearch))
+			result.add(obj);
+		else if (obj instanceof ContentAccessor) {
+			List<?> children = ((ContentAccessor) obj).getContent();
+			for (Object child : children) {
+				result.addAll(getAllElementFromObject(child, toSearch));
+			}
+
+		}
+		return result;
+	}
+
+	public static void replacePlaceholder(WordprocessingMLPackage template,
+			String name, String placeholder) {
+		List<Object> texts = getAllElementFromObject(
+				template.getMainDocumentPart(), Text.class);
+
+		for (Object text : texts) {
+			Text textElement = (Text) text;
+			if (textElement.getValue().equals(placeholder)) {
+				textElement.setValue(name);
+			}
+		}
+	}
+
+	public static void append(WordprocessingMLPackage docDest,
+			WordprocessingMLPackage docSource) {
+		List<Object> objects = docSource.getMainDocumentPart().getContent();
+
+		for (Object o : objects) {
+			docDest.getMainDocumentPart().getContent().add(o);
+		}
+	}
+
+	public static void addPageBreak(WordprocessingMLPackage wordMLPackageDest) {
+		org.docx4j.wml.P p = new org.docx4j.wml.P();
+		org.docx4j.wml.R r = new org.docx4j.wml.R();
+		org.docx4j.wml.Br br = new org.docx4j.wml.Br();
+		br.setType(STBrType.PAGE);
+		r.getContent().add(br);
+		p.getContent().add(r);
+		wordMLPackageDest.getMainDocumentPart().addObject(p);
+	}
+}

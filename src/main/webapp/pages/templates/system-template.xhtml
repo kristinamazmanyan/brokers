@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"	 
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				template="/pages/templates/default.xhtml"
+				xmlns:dbt="http://www.exam.com/jsf/facelets">
+				
+	<ui:define name="tab-index">0</ui:define>
+	
+	<ui:define name="submenu">
+		<h:form prependId="false">		
+			<p:tabMenu>
+			     <p:menuitem id="sub-menu-item-0" value="#{i18n['user.users']}"
+			    			rendered="#{userDetails.viewUsers}" 
+			    			url="/pages/system/user/users.jsf">
+			    </p:menuitem>
+			     <p:menuitem id="sub-menu-item-1" value="#{i18n['event.events']}"
+			    			rendered="#{userDetails.viewEvents}" 
+			    			url="/pages/system/event/events.jsf">
+			    </p:menuitem>	
+			</p:tabMenu>
+		</h:form>			
+			 		
+		<script type="text/javascript">
+          jQuery(document).ready(function(){
+        	  try {
+        	  	 jQuery('#sub-menu-item-0').parent().removeClass('ui-state-active');
+        	  } catch(ex) {        		  
+        	  }
+        	  try {
+         	  	 jQuery('#sub-menu-item-1').parent().removeClass('ui-state-active');
+         	  } catch(ex) {        		  
+         	  }
+
+              var subMenuitemId = '#sub-menu-item-<ui:insert name="subtab-index"/>' ;
+              
+              if (subMenuitemId) {
+            	  jQuery(subMenuitemId).parent().addClass('ui-state-active');
+              }
+          	 
+           });
+		</script>
+	</ui:define>
+	<ui:insert name="content" />
+
+</ui:composition>

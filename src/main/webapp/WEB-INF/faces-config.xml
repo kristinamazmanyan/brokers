@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+	<application>
+		<action-listener>org.primefaces.application.DialogActionListener</action-listener>
+        <navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+        <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+        <navigation-handler>org.primefaces.mobile.application.MobileNavigationHandler</navigation-handler>
+        
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+	</application>
+	
+	<converter>
+		<converter-id>permissionConverter</converter-id>
+		<converter-class>com.brokerexam.web.converter.PermissionConverter</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>roleConverter</converter-id>
+		<converter-class>com.brokerexam.web.converter.RoleConverter</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>userConverter</converter-id>
+		<converter-class>com.brokerexam.web.converter.UserConverter</converter-class>
+	</converter>
+
+	<converter>
+		<converter-id>baseConverter</converter-id>
+		<converter-class>com.brokerexam.web.converter.BaseConverter</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>DbtLongConverter</converter-id>
+		<converter-class>com.brokerexam.web.converter.DbtLongConverter</converter-class>
+	</converter>
+	
+	<converter>
+	    <converter-id>customDateConverter</converter-id>
+	    <converter-class>com.brokerexam.web.converter.CustomDateConverter</converter-class>
+  	</converter>
+  	
+  	<converter>
+	    <converter-id>customDateTimeConverter</converter-id>
+	    <converter-class>com.brokerexam.web.converter.CustomDateTimeConverter</converter-class>
+  	</converter>
+	
+	<component>
+        <description>Custom SelectOne component that skips the validation.</description>
+        <display-name>selectOne</display-name>
+        <component-type>dbt.SelectOne</component-type>
+        <component-class>com.brokerexam.web.component.CustomSelectOne
+		</component-class>
+    </component>
+    
+    <component>
+        <description>Custom CustomSelectMany component that skips the validation.</description>
+        <display-name>selectMany</display-name>
+        <component-type>dbt.SelectMany</component-type>
+        <component-class>com.brokerexam.web.component.CustomSelectMany
+		</component-class>
+    </component>
+    
+    <component>
+		<description>Authentication Checker</description>
+		<display-name>authCheck</display-name>
+		<component-type>dbt.AuthCheck</component-type>
+		<component-class>com.brokerexam.web.component.AuthCheck</component-class>
+	</component>
+    
+</faces-config>

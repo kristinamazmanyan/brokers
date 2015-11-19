@@ -1,0 +1,36 @@
+[13:18:36] Gurgen Nersesyan: user / pass = exam/ exam
+[13:18:54] Gurgen Nersesyan: schman el exam
+[13:20:34] Gurgen Nersesyan: esi miangamic kgres tomcat-i context.xml -i mej
+[13:21:06] Gurgen Nersesyan: db configi hamar env variable kam db.properties chsarqes
+[13:21:07] Gurgen Nersesyan: <Resource
+            factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+            name="jdbc/examDataSource"
+            auth="Container"
+            type="javax.sql.DataSource"
+            initialSize="1"
+            maxActive="20"
+            maxIdle="3"
+            minIdle="1"
+            maxWait="5000"
+            username="exam"
+            password="exam"
+            driverClassName="org.postgresql.Driver"
+            validationQuery="SELECT 'OK'"
+            testWhileIdle="true"
+            testOnBorrow="true"
+            numTestsPerEvictionRun="5"
+            timeBetweenEvictionRunsMillis="30000"
+            minEvictableIdleTimeMillis="60000"
+            url="jdbc:postgresql://10.100.125.247:5432/exam" />
+[13:22:04] Gurgen Nersesyan: esi qez maveni dependency
+[13:22:14] Gurgen Nersesyan:         <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901-1.jdbc4</version>
+        </dependency>
+[13:22:46] Gurgen Nersesyan: mek el et postgresi-i jary kqces tomcati lib folderi mej
+[13:23:58] Gurgen Nersesyan: mi hat el senc tox spring-i configneri mej kanes (ete springova linelu)
+[13:24:07] Gurgen Nersesyan:     <jee:jndi-lookup id="ppcmDataSource" jndi-name="jdbc/ppcmDataSource" lookup-on-startup="false"
+                     proxy-interface="javax.sql.DataSource"/>
+[13:25:00] Gurgen Nersesyan: tomcat8 java8
+[13:25:07] Gurgen Nersesyan: eli harcer arajanan zangi ;)

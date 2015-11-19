@@ -1,0 +1,131 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;">
+    <!ENTITY bull "&#8226;">
+    <!ENTITY copy "&#169;">
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:dbt="http://www.exam.com/jsf/facelets">
+	
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport"
+			content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel="shortcut icon" type="image/ico"
+			href="#{request.contextPath}/static/images/favicon.ico" />
+	</f:facet>
+
+	<title>#{i18n['common.app_title']}</title>
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/static/css/styles.css" />
+
+	<link href="#{request.contextPath}/static/css/bootstrap.css" rel="stylesheet"/>
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]-->
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <!--[endif]-->
+
+	<script type="text/javascript" src="#{request.contextPath}/static/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript">
+          	jQuery.noConflict();
+	</script>
+	<ui:insert name="head" />
+</h:head>
+
+<h:body>
+	<div id="outer-wrapper">
+		<div class="header-top clearfix">
+			<div class="fright exit-name">				
+				<ul class="headerMenu">
+					<li>
+					 	<a title="#{i18n['language.armenian']}" class="#{sessionScope.language == 'hy' ? 'selected':''}"
+					 	  onclick="changeLanguage('hy')" href="#">#{i18n['language.armenian']}</a>
+					</li>
+					<li>
+					 	<a title="#{i18n['language.english']}"  class="#{sessionScope.language == 'en' ? 'selected':''}"
+					 		onclick="changeLanguage('en')" href="#">#{i18n['language.english']}</a>
+					</li>
+					<li>
+						<a href="#{request.contextPath}/pages/system/user/change-password.jsf">
+					 		#{i18n['user.change_password']}
+						</a>
+					</li>
+					<li>
+						<a href="#{request.contextPath}/auth/logout.action">
+					 		(#{userDetails.fullName}) <span>#{i18n['common.logout_action']}</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="fleft logo">
+				<a href="#{request.contextPath}/pages/index.xhtml"></a>
+			</div>
+		</div>
+		<h:form prependId="false">
+			<p:menubar id="navigationTab" style="background-color:#034f8a !important;">
+				<p:menuitem id="menu-item-0" value="#{i18n['exam.exams']}"
+							rendered="#{userDetails.viewExams}"
+							url="/pages/exams/exams.jsf">
+				</p:menuitem>
+				<p:menuitem id="menu-item-1" value="#{i18n['exam.member_search']}"
+							rendered="#{userDetails.viewExams}"
+							url="/pages/search/member-search.jsf">
+				</p:menuitem>
+			    <p:menuitem id="menu-item-2" value="#{i18n['system.requirements']}"
+			    			rendered="#{userDetails.viewSystem}" 
+			    			url="/pages/system/system.jsf">
+			    </p:menuitem>
+			</p:menubar>
+		</h:form>	
+										
+		<div class="clearfix"></div>
+		<ui:insert name="submenu" />
+		<div class="clearfix"></div>
+		<div class="content">
+			<div class="content-body">
+				<h1>
+				<ui:insert name="title" />
+				</h1>
+			</div>
+		</div>
+		<div class="content">
+			<div class="content-body">
+				<ui:insert name="content" />
+			</div>
+		</div>
+		<div id="footer">
+			<h:outputText value="#{msg['footer.text']}" escape="false" />
+		</div>
+
+	</div>
+<script type="text/javascript">
+         jQuery(document).ready(function(){
+             var menuitemId = '#menu-item-<ui:insert name="tab-index"/>' ;
+             
+             try {
+            	 jQuery('#menu-item-0').parent().removeClass('ui-state-active');
+             } catch (e) {}
+             try {
+            	 jQuery(menuitemId).parent().addClass('ui-state-active');
+              } catch (e) {}
+          });
+         
+         function changeLanguage(langCode) {
+      		jQuery.post("#{request.contextPath}/changeLanguage.action", {
+     		    langCode : langCode,
+     			currentUrl : window.location.href
+     		}, function() {
+     			window.location.reload(); 
+     		});
+     	}
+</script>
+</h:body>
+
+</html>

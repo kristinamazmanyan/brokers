@@ -1,0 +1,150 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:dbt="http://www.exam.com/jsf/facelets"
+                template="/pages/templates/default.xhtml">
+
+
+    <ui:define name="title">#{i18n['exam.committee_members']}</ui:define>
+    <ui:define name="content">
+        <dbt:authCheck checkPermission="exam.view_committee_members"/>
+
+        <h:form id="searchForm"                >
+            <p:messages id="messages" showDetail="true" autoUpdate="true"
+                        closable="true" />
+
+            <p:panelGrid style="width:1024px">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="4">
+                            #{i18n['exam.search']}
+                        </p:column>
+                    </p:row>
+                </f:facet>
+
+                <p:row>
+                    <p:column>
+                        <h:outputLabel for="firstName" value="#{i18n['exam.first_name']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="firstName"
+                                     value="#{committeeMembersListController.searchBean.firstName}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputLabel for="lastName" value="#{i18n['exam.last_name']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="lastName"
+                                     value="#{committeeMembersListController.searchBean.lastName}" />
+                    </p:column>
+
+
+                </p:row>
+
+            </p:panelGrid>
+            <br />
+            <p:commandButton id="searchButton" value="#{i18n['exam.search']}"
+                             icon="ui-icon-search"
+                             actionListener="#{committeeMembersListController.search}" update="dataTable"
+                             onstart="this.disabled=true" oncomplete="this.disabled=false"
+                             onclick="resetDataTable()" />
+            <p:spacer width="20" />
+            <p:commandButton value="#{i18n['exam.reset']}" icon="ui-icon-cancel"
+                             onclick="resetDataTable()"
+                             actionListener="#{committeeMembersListController.reset}"
+                             update=":searchForm" />
+            <br />
+            <br />
+            <br />
+
+            <p:dataTable id="dataTable" var="trainingExam"
+                         value="#{committeeMembersListController.lazyTrainingExamsDataModel}"
+                         widgetVar="datatableVar" rowIndexVar="rowIndex"
+                         selectionMode="single" paginator="true" lazy="true" dynamic="true"
+                         cache="false" paginatorPosition="bottom"
+                         paginatorAlwaysVisible="false"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rows="#{committeeMembersListController.pageSize}"
+                         rowsPerPageTemplate="10,20,40,100">
+
+                <p:column headerText=" #{i18n['exam.number']}"
+                          sortBy="#{trainingExam.rownum}">
+                    #{rowIndex+1}
+                </p:column>
+
+                <p:column headerText=" #{i18n['exam.first_name']}"
+                          sortBy="#{trainingExam.firstName}">
+                    #{trainingExam.firstName}
+                </p:column>
+
+                <p:column headerText=" #{i18n['exam.last_name']}"
+                          sortBy="#{trainingExam.lastName}">
+                    #{trainingExam.lastName}
+                </p:column>
+
+                <p:column headerText=" #{i18n['exam.position']}"
+                          sortBy="#{trainingExam.positionName}">
+                    #{trainingExam.positionName}
+                </p:column>
+
+
+                <p:column rendered="#{userDetails.manageCommitteeMembers}">
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.edit']}" />
+                    </f:facet>
+                    <a
+                            href="#{facesContext.externalContext.request.contextPath}/pages/exams/edit-cm.jsf?id=#{trainingExam.id}&amp;examId=#{committeeMembersListController.examId}"
+                            title="#{i18n['exam.edit']}"> #{i18n['exam.edit']} </a>
+                </p:column>
+
+                <p:column rendered="#{userDetails.manageCommitteeMembers}">
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.delete']}" />
+                    </f:facet>
+
+                    <p:commandLink id="showDialogButton" value="#{i18n['exam.delete']}"
+                                   icon="ui-icon-close" actionListener="#{committeeMembersListController.deleteCM}"
+                                   ajax="true" update="dataTable">
+                        <f:param name="cmId" value="#{trainingExam.id}" />
+                        <p:confirm header="#{i18n['exam.delete_examinator']}" message="#{i18n['exam.examinator_delete_confirm']}" icon="ui-icon-alert" />
+                    </p:commandLink>
+
+
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:button value="#{i18n['exam.create_examinator']}" icon="ui-icon-document"
+                      href="#{contextPath}/pages/exams/create-cm.jsf?id=#{committeeMembersListController.examId}" rendered="#{userDetails.manageCommitteeMembers}"/>
+            <p:spacer width="20" />
+            <p:button value="#{i18n['exam.back']}" icon="ui-icon-back"
+                      outcome="exams.xhtml" />
+
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                <p:commandButton value="#{i18n['exam.yes']}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="#{i18n['exam.no']}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" vidgetVar="blockUI" block="searchForm" trigger="dataTable searchButton">
+                <p:graphicImage value="#{contextPath}/static/img/loading.gif"/>
+            </p:blockUI>
+
+
+
+
+        </h:form>
+        <script type="text/javascript">
+            function resetDataTable() {
+                datatableVar.getPaginator().setPage(0);
+            }
+        </script>
+
+
+
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:dbt="http://www.exam.com/jsf/facelets"
+                template="/pages/templates/default.xhtml">
+
+    <ui:define name="title">#{i18n['exam.create_exam']}</ui:define>
+    <ui:define name="content">
+        <dbt:authCheck checkPermission="exam.manage_exams"/>
+
+        <h:form id="mainForm">
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+            <p:panelGrid style="width:1024px">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="2">
+                            #{i18n['exam.create_exam']}
+                        </p:column>
+                    </p:row>
+                </f:facet>
+
+
+                <p:row>
+                    <p:column>
+                        <h:outputLabel for="name" value="#{i18n['exam.exam_name']}"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="name"
+                                     value="#{createExamController.exam.name}" size="115"/>
+                    </p:column>
+
+                </p:row>
+                <p:row>
+                    <p:column>
+
+
+                        <h:outputLabel for="start_date" value="#{i18n['exam.exam_date']}"/>
+                    </p:column>
+                    <p:column>
+                    <p:calendar value="#{createExamController.exam.startDate}"
+                                id="start_date" pattern="dd/MM/yyyy" mode="popup" showOn="button">
+                        <f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy"/>
+                    </p:calendar>
+
+                    </p:column>
+
+
+                </p:row>
+
+            </p:panelGrid>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <p:commandButton value="#{i18n['exam.create']}" icon="ui-icon-disk"
+                             actionListener="#{createExamController.createExam}" update="messages"/>
+            <p:spacer width="20"/>
+            <p:button value="#{i18n['exam.back']}" icon="ui-icon-back" outcome="exams.xhtml"/>
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

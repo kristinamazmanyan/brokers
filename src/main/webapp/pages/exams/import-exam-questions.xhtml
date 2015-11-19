@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:dbt="http://www.exam.com/jsf/facelets"
+                template="/pages/templates/default.xhtml">
+
+
+    <ui:define name="title">#{i18n['exam.questionary']}</ui:define>
+    <ui:define name="content">
+        <dbt:authCheck checkPermission="exam.manage_exam_members"/>
+        <h:form id="mainForm" enctype="multipart/form-data">
+
+            <h:inputHidden value="#{examQuestionsUploadController.examId}" id="examId"/>
+
+            <p:messages id="messages" showDetail="true" autoUpdate="true"
+                        closable="true" />
+
+
+            <b>#{i18n['exam.import_exam_questions']}</b>
+
+            <p:fileUpload
+                    value="#{examQuestionsUploadController.examFile}"
+                    mode="simple" />
+
+            <p:commandButton value="#{i18n['exam.import']}" ajax="false"
+                             actionListener="#{examQuestionsUploadController.uploadExamFile}" />
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <p:button value="#{i18n['exam.back']}" icon="ui-icon-back"
+                      outcome="exams.xhtml" />
+
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

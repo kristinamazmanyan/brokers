@@ -1,0 +1,21 @@
+<!doctype html>
+<html ng-app="Test">
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.4.0.js"></script>
+    <script src=" ../autocompletion.js"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class='container-fluid' ng-controller="C">
+    <pre>Model: {{inputValue | json}}</pre>
+
+    <input type="text" ng-model="inputValue" typeahead="state for state in loader() | filter:$viewValue">
+    <input type="text" ng-model="inputValue" typeahead="state for state in loader2()">
+
+    <input type="text" ng-model="inputValue" my-autocomplete="loader()"/>
+    <input type="text" ng-model="inputValue" my-autocomplete="loader2()"/>
+</div>
+</body>
+</html>

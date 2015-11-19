@@ -1,0 +1,206 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:dbt="http://www.exam.com/jsf/facelets"
+                template="/pages/templates/default.xhtml">
+
+    <ui:define name="title">#{i18n['exam.exam_members']}</ui:define>
+    <ui:define name="content">
+        <dbt:authCheck checkPermission="exam.view_exam_members"/>
+        <h:form id="searchForm" enctype="multipart/form-data">
+            <p:messages id="messages" showDetail="true" autoUpdate="true"
+                        closable="true" />
+
+            <p:panelGrid style="width:1024px">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="6">
+                            #{i18n['exam.search']}
+                        </p:column>
+                    </p:row>
+                </f:facet>
+
+                <p:row>
+                    <p:column>
+                        <h:outputLabel for="firstName" value="#{i18n['exam.first_name']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="firstName"
+                                     value="#{examMembersListController.searchBean.firstName}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputLabel for="lastName" value="#{i18n['exam.last_name']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="lastName"
+                                     value="#{examMembersListController.searchBean.lastName}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputLabel for="passport" value="#{i18n['common.passport_number']}" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="passport"
+                                     value="#{examMembersListController.searchBean.passport}" />
+                    </p:column>
+
+
+                </p:row>
+
+            </p:panelGrid>
+            <br />
+            <p:commandButton id="searchButton" value="#{i18n['exam.search']}"
+                             icon="ui-icon-search"
+                             actionListener="#{examMembersListController.search}"
+                             update="dataTable" onstart="this.disabled=true"
+                             oncomplete="this.disabled=false" onclick="resetDataTable()" />
+            <p:spacer width="20" />
+            <p:commandButton value="#{i18n['exam.reset']}" icon="ui-icon-cancel"
+                             onclick="resetDataTable()"
+                             actionListener="#{examMembersListController.reset}"
+                             update=":searchForm" />
+            <br />
+            <br />
+            <br />
+
+            <p:dataTable id="dataTable" var="examMember"
+                         value="#{examMembersListController.lazyExamMembersDataModel}"
+                         widgetVar="datatableVar" rowIndexVar="rowIndex"
+                         selectionMode="single" paginator="true" lazy="true" dynamic="true"
+                         cache="false" paginatorPosition="bottom"
+                         paginatorAlwaysVisible="false"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rows="#{examListController.pageSize}"
+                         rowsPerPageTemplate="10,20,40,100">
+
+                <p:column headerText=" #{i18n['exam.number']}"
+                          sortBy="#{examMember.rownum}">
+                    #{rowIndex+1}
+                </p:column>
+
+                <p:column headerText=" #{i18n['exam.first_name']}"
+                          sortBy="#{examMember.firstName}">
+                    #{examMember.firstName}
+                </p:column>
+
+                <p:column headerText=" #{i18n['exam.last_name']}"
+                          sortBy="#{examMember.lastName}">
+                    #{examMember.lastName}
+                </p:column>
+                <p:column headerText=" #{i18n['exam.surename']}"
+                          sortBy="#{examMember.surname}">
+                    #{examMember.surname}
+                </p:column>
+
+                <p:column headerText=" #{i18n['common.passport_number']}"
+                          sortBy="#{examMember.passport}">
+                    #{examMember.passport}
+                </p:column>
+
+                <p:column rendered="#{userDetails.manageExamMembers}">
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.edit']}" />
+                    </f:facet>
+
+                    <h:commandLink value="#{i18n['exam.edit']}" icon="ui-icon-disk"
+                                   action="#{examMembersListController.editExamMember}" rendered="#{examMember.status == 0 }">
+                        <f:param name="examMemberId" value="#{examMember.id}" />
+                        <f:param name="examId" value="#{examMembersListController.examId}" />
+                    </h:commandLink>
+
+                </p:column>
+
+                <p:column rendered="#{userDetails.manageExamMembers}">
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.remove']}" />
+                    </f:facet>
+
+                    <p:commandLink id="showDialogButton" value="#{i18n['exam.remove']}"
+                                   icon="ui-icon-close"
+                                   actionListener="#{examMembersListController.deleteExamMember}"
+                                   ajax="true" update="dataTable" rendered="#{examMember.status == 0 }">
+                        <f:param name="examMemberId" value="#{examMember.id}" />
+                        <p:confirm header="#{i18n['exam.remove_member']}"
+                                   message="#{i18n['exam.member_remove_confirm']}"
+                                   icon="ui-icon-alert" />
+                    </p:commandLink>
+
+
+                </p:column>
+
+
+                <p:column rendered="#{userDetails.manageExamMembers}">
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.active']}" />
+                    </f:facet>
+
+                    <h:commandLink styleClass="noblock submit" id="pdfres" action="#{examMembersListController.activateExamMember}" value="#{i18n['exam.active']}" rendered="#{examMember.status == 0 }" >
+                        <f:param name="isForPdf" value="yes" />
+                        <f:param name="examMemberId" value="#{examMember.id}" />
+                    </h:commandLink>
+
+
+                </p:column>
+
+                <p:column rendered="#{userDetails.printResult}">
+                    <f:facet name="header">
+                        <h:outputText value="#{i18n['exam.appl_result']}" />
+                    </f:facet>
+
+                    <h:commandLink styleClass="noblock submit" id="pdfres1" action="#{examMembersListController.downloadResult}" value="#{i18n['exam.appl_result']}" rendered="#{examMember.status >3 }">
+                        <f:param name="isForPdf" value="yes" />
+                        <f:param name="examMemberId" value="#{examMember.id}" />
+                    </h:commandLink>
+
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:button value="#{i18n['exam.create_appl']}"
+                      icon="ui-icon-document"
+                      href="#{contextPath}/pages/exams/create-member.jsf?id=#{examMembersListController.examId}"
+                      rendered="#{userDetails.manageExamMembers}" />
+            <p:spacer width="20" />
+            <p:button value="#{i18n['exam.back']}" icon="ui-icon-back"
+                      outcome="exams.xhtml" />
+
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                <p:commandButton value="#{i18n['exam.yes']}" type="button"
+                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="#{i18n['exam.no']}" type="button"
+                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" vidgetVar="blockUI" block="searchForm"
+                       trigger="dataTable searchButton">
+                <p:graphicImage value="#{contextPath}/static/img/loading.gif" />
+            </p:blockUI>
+
+
+            <br />
+            <br />
+            <b>#{i18n['exam.import_exam_members']}</b>
+            <br />
+            <br />
+
+            <p:fileUpload value="#{examMembersListController.membersFile1}" mode="simple"/>
+
+            <p:commandButton value="#{i18n['exam.import']}" ajax="false"
+                             actionListener="#{examMembersListController.uploadMembersFile1}"/>
+
+
+
+
+        </h:form>
+        <script type="text/javascript">
+            function resetDataTable() {
+                datatableVar.getPaginator().setPage(0);
+            }
+        </script>
+
+    </ui:define>
+</ui:composition>
